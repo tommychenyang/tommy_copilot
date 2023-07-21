@@ -8,12 +8,18 @@ import { IMetaData } from '../consts/types';
 })
 export class DynamicformComponent {
 
-  @Input() metaData: IMetaData[] = [];
+  @Input() set metaData(list: IMetaData[]){
+    this._metaData = list.sort((a: IMetaData, b: IMetaData) => (a.order || 0- (b.order || 0)));
+    this._metaData.map((item: IMetaData) => [...item.components] ).forEach((item: any) => {
+      item.sort((a: any, b: any) => a.order - b.order);
+    }
+    )
+    
+  }
   @Output() submit = new EventEmitter<any>();
-  @Output() cancel = new EventEmitter<any>();
-  @Output() delete = new EventEmitter<any>();
 
 
+  _metaData: IMetaData[] = [];
   _isValid: boolean = false;
   _formData: any = {};
   constructor() { }
@@ -23,7 +29,7 @@ export class DynamicformComponent {
 
   validateForm(){
     let isValid = true;
-    let formFields = this.metaData.map((item: IMetaData) => [...item.components] );
+    let formFields = this._metaData.map((item: IMetaData) => [...item.components] );
     formFields.forEach((item: any) => {
       item.forEach((field: any) => {
         if(field?.rule?.required && !this._formData[field.key]){
@@ -38,22 +44,7 @@ export class DynamicformComponent {
     this._isValid = isValid;
   }
   submitForm(){
-    let isValid = true;
-    let formFields = this.metaData.map((item: IMetaData) => [...item.components] );
-    formFields.forEach((item: any) => {
-      item.forEach((field: any) => {
-        if(field?.rule?.required && !this._formData[field.key]){
-          isValid = false;
-        }
-
-        if(field?.rule?.maxLength && this._formData[field.key] && this._formData[field.key]?.length > field?.rule?.maxLength){
-          isValid = false;
-        }
-      })
-    })
-    
-
-    isValid && this.submit.emit(this._formData);
+    this.submit.emit(this._formData);
   }
 
 }

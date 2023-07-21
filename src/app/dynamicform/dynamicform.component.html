@@ -1,7 +1,7 @@
 <form>
     <!-- render a form that iterate metadataService._metaData as form section, and iterate components property and render as form fields -->
     <!-- sort by metadata item order -->
-    <div *ngFor="let item of metaData">
+    <div *ngFor="let item of _metaData">
         <h1> {{item.section}}
         </h1>
         <div *ngFor="let subitem of item.components" style="display: flex; flex-direction: row;">

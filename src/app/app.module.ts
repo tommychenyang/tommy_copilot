@@ -6,11 +6,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MetadataService } from './metadata.service';
 import { DynamicformComponent } from './dynamicform/dynamicform.component';
 import { FormsModule } from '@angular/forms';
+import { OrderbyPipe } from './orderby.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DynamicformComponent
+    DynamicformComponent,
+    OrderbyPipe
   ],
   imports: [
     BrowserModule,
