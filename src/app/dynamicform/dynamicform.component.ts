@@ -9,7 +9,7 @@ import { IMetaData } from '../consts/types';
 export class DynamicformComponent {
 
   @Input() set metaData(list: IMetaData[]){
-    this._metaData = list.sort((a: IMetaData, b: IMetaData) => (a.order || 0- (b.order || 0)));
+    this._metaData = list.sort((a: IMetaData, b: IMetaData) => (a.order || 100- (b.order || 100)));
     this._metaData.map((item: IMetaData) => [...item.components] ).forEach((item: any) => {
       item.sort((a: any, b: any) => a.order - b.order);
     }
