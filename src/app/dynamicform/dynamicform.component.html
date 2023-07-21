@@ -1,0 +1,29 @@
+<form>
+    <!-- render a form that iterate metadataService._metaData as form section, and iterate components property and render as form fields -->
+    <!-- sort by metadata item order -->
+    <div *ngFor="let item of metaData">
+        <h1> {{item.section}}
+        </h1>
+        <div *ngFor="let subitem of item.components" style="display: flex; flex-direction: row;">
+
+            <div style="border: 1px solid red;">
+                {{subitem.label}}
+            </div>
+            <!-- section item should display in flexlayout -->
+            <section style="flex:1; margin-right: 2em">
+                <div *ngIf="subitem.type === 'textbox'" style="flex:1">
+                    <input type="text" [placeholder]="subitem.label" [name]="subitem.key" [(ngModel)]="_formData[subitem.key]" (ngModelChange)="validateForm()"/>
+                </div>
+                <div *ngIf="subitem.type === 'radio'" style="flex:1">
+                    <!-- render radio html -->
+                    <div *ngFor="let option of subitem.options">
+                        <input type="radio" [value]="option.value" [name]="subitem.key" [(ngModel)]="_formData[subitem.key]" (ngModelChange)="validateForm()" />
+                        {{option.label}}
+                    </div>Ï
+                </div>
+            </section>
+
+        </div>
+    </div>
+    <button type=" submit" (click)="submitForm()" [disabled]="!_isValid">Submit</button>
+</form>

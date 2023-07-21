@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MetadataService } from './metadata.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,17 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'tommy_copilot';
+
+  /**
+   *
+   */
+  constructor(public metadataService: MetadataService) {
+    
+    
+  }
+
+  onSubmit(data: any){
+    console.log(data);
+    alert(JSON.stringify(data))
+  }
 }
